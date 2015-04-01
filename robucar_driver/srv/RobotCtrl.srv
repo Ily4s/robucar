@@ -1,0 +1,9 @@
+float64  speed           
+float64  angle_forward  
+float64  angle_rear     
+int16    position_tilt  
+int16    position_pan   
+int16    speed_pan      
+int16    speed_tilt      
+---
+bool retval

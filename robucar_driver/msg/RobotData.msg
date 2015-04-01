@@ -1,0 +1,11 @@
+float64 speed_average  
+float64 speed_FL       
+float64 speed_FR       
+float64 speed_RL        
+float64 speed_RR       
+float64 angle_forward   
+float64 angle_rear      
+int16   position_pan     
+int16   position_tilt    
+int16   speed_pan       
+int16   speed_tilt      

@@ -5,9 +5,11 @@ project(robucar_driver)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  roscpp
   rospy
+  tf
   std_msgs
+  nav_msgs
+  geometry_msgs
   message_generation
 )
 
@@ -48,13 +50,17 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(
   FILES
   RobotData.msg
+  RobotDataStamped.msg
+  RobucarDrive.msg
+  RobucarDriveStamped.msg
+  JoyDrive.msg
+  JoyDriveStamped.msg
 )
 
 ## Generate services in the 'srv' folder
 add_service_files(
   FILES
-  RobotCtrl.srv
-  RobotDrive.srv
+  DriveMode.srv
   RobotPTU.srv
 )
 

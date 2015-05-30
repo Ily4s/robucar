@@ -1,0 +1,8 @@
+<launch>
+  
+  <node pkg="robucar_tele" type="tele_joy_remote.py"  name="tele_joy_remote"  output="screen"></node>
+  <node respawn="true" pkg="joy" type="joy_node"  name="joy_remote"  output="screen">
+  	<param name="dev" type="string" value="/dev/input/js1" />
+  </node>
+
+</launch>

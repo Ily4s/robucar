@@ -1,0 +1,11 @@
+<launch>
+  
+  <param name="/robucar_driver/robotip" type="string" value="127.0.0.1" />
+  <param name="/robucar_driver/robotport" type="int" value="11000" />
+  <param name="/robucar_driver/laptopip" type="string" value="127.0.0.1" />
+  <param name="/robucar_driver/laptopport" type="int" value="12000" />
+  
+  <node pkg="robucar_driver" type="robucar_actuators.py" name="robucar_actuators" output="screen"></node>
+  <node pkg="robucar_driver" type="robucar_monitor.py"  name="robucar_mon"  output="screen"></node>
+
+</launch>

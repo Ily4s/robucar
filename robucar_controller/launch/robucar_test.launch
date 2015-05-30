@@ -1,0 +1,19 @@
+<launch>
+  
+  <node pkg="robucar_driver" type="robucar_actuators.py" name="robucar_driver_ctrl" output="screen"></node>
+  
+  <node pkg="robucar_driver" type="robucar_monitor.py"  name="robucar_mon"  output="screen"></node>
+  
+  <node pkg="robucar_controller" type="joy_controller.py"  name="joystick_controller"  output="screen"></node>
+
+  <node pkg="robucar_tele" type="tele_joy_remote.py"  name="tele_joy_remote"  output="screen"></node>
+
+  <node pkg="robucar_tele" type="tele_joy.py"  name="tele_joy"  output="screen"></node>
+  
+  <node respawn="true" pkg="joy" type="joy_node"  name="joy_remote"  output="screen">
+  	<param name="dev" type="string" value="/dev/input/js1" />
+  </node>
+
+  <include file="$(find robucar_description)/launch/ackermann_vehicle_rviz.launch"></include>
+
+</launch>

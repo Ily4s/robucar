@@ -1,0 +1,9 @@
+<launch>
+  
+
+  <node pkg="robucar_driver" type="robucar_actuators.py" name="robucar_driver_ctrl" output="screen"></node>
+  <node pkg="robucar_driver" type="robucar_monitor.py"  name="robucar_driver_mon"  output="screen"></node>
+  <node pkg="robucar_controller" type="joy_controller.py"  name="joy_controller"  output="screen"></node>
+  <node pkg="robucar_tele" type="tele_joy.py"  name="tele_joy"  output="screen"></node>
+
+</launch>

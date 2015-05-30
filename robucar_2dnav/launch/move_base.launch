@@ -1,0 +1,23 @@
+<launch>
+  <master auto="start"/>
+
+  <!-- Run the map server -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find robucar_description)/maps/out1mod.yaml"/>
+
+  <!--- Run AMCL -->
+  <!--- <include file="$(find amcl)/examples/amcl_diff.launch" />-->
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+   <param name="controller_frequency" value="10.0"/>
+   <param name="recovery_behavior_enabled" value="false"/>
+   <param name="clearing_rotation_allowed" value="false"/>
+    <rosparam file="$(find robucar_2dnav)/costmaps/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find robucar_2dnav)/costmaps/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find robucar_2dnav)/costmaps/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find robucar_2dnav)/costmaps/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find robucar_2dnav)/planner_config/base_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find robucar_2dnav)/planner_config/global_planner_params.yaml" command="load" />
+
+    
+  </node>
+</launch>

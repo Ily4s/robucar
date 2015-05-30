@@ -1,0 +1,17 @@
+<launch>
+  
+  <node pkg="robucar_driver" type="robucar_actuators.py" name="robucar_driver_ctrl" output="screen"></node>
+  
+  <node pkg="robucar_driver" type="robucar_monitor.py"  name="robucar_mon"  output="screen"></node>
+  
+  <node pkg="robucar_controller" type="cmd_vel_controller.py"  name="ackermann_controller"  output="screen"></node>
+
+  <node pkg="robucar_controller" type="base_controller.py"  name="base_controller"  output="screen"></node>
+
+  <node pkg="robucar_tele" type="tele_joy.py"  name="tele_joy"  output="screen"></node>
+
+  <node pkg="sicktoolbox_wrapper2" type="sicklms_5xx"  name="robucar_scan"  output="screen"></node>
+
+  <include file="$(find robucar_description)/launch/ackermann_vehicle_rviz.launch"></include>
+
+</launch>

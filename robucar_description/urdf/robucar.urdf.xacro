@@ -26,7 +26,7 @@
         <!-- Dimension Macros -->
     <xacro:property name="carLength" value="2.0" />
     <xacro:property name="carWidth" value="1.00" />
-    <xacro:property name="carHeight" value="0.6" />
+    <xacro:property name="carHeight" value="0.5" />
     <xacro:property name="wheelRadius" value="0.2125" />
     <xacro:property name="wheelWidth" value="0.125" />
     
@@ -34,11 +34,17 @@
     <material name="Red">
     	<color rgba="1.0 0 0 1.0"/>
     </material>
+    <material name="Yellow">
+        <color rgba="1.0 1.0 0 1.0"/>
+    </material>
+    <material name="Grey">
+        <color rgba="0.25 0.25 0.25 1.0"/>
+    </material>
     <material name="Green">
     	<color rgba="0 1.0 0 1.0"/>
     </material>
     <material name="Blue">
-    	<color rgba="0 0 1.0 0.5"/>
+    	<color rgba="0 0 1.0 1.0"/>
     </material>
     <material name="Black">
     	<color rgba="0 0 0 1.0"/>
@@ -60,7 +66,7 @@
             <geometry>
                 <box size="${carLength} ${carWidth} ${carHeight}" />
             </geometry>
-            <material name="Red"/>
+            <material name="Grey"/>
         </visual>
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0" />
@@ -70,7 +76,7 @@
         </collision>
     </link>
     <gazebo reference="base_link">
-        <material>Gazebo/Red</material>
+        <material>Gazebo/Grey</material>
     </gazebo>
     
     <!-- Front link of Ackermann -->
@@ -99,7 +105,7 @@
         </collision>
     </link>
     <gazebo reference="front_link">
-        <material>Gazebo/Green</material>
+        <material>Gazebo/Black</material>
     </gazebo>
     
     <!-- a link aligned with the steer direction -->
@@ -121,7 +127,7 @@
             <geometry>
                 <box size="${carLength*0.1} ${carWidth*0.133} ${carHeight*0.05}" />
             </geometry>
-            <material name="Green"/>
+            <material name="Black"/>
         </visual>
         <collision>
             <origin xyz="0.02 0 0" />
@@ -131,7 +137,7 @@
         </collision>
     </link>
     <gazebo reference="steer_link">
-        <material>Gazebo/Green</material>
+        <material>Gazebo/Black</material>
     </gazebo>
 
     <!-- the left Ackermann bar -->
@@ -153,7 +159,7 @@
             <geometry>
                 <box size="${carLength*0.1} ${carWidth*0.133} ${carHeight*0.05}" />
             </geometry>
-            <material name="Green"/>
+            <material name="Black"/>
         </visual>
         <collision>
             <origin xyz="-0.02 0 0" />
@@ -163,7 +169,7 @@
         </collision>
     </link>
     <gazebo reference="front_left_bar_link">
-        <material>Gazebo/Green</material>
+        <material>Gazebo/Black</material>
     </gazebo>
 
     <!-- the right Ackermann bar -->
@@ -185,7 +191,7 @@
             <geometry>
                 <box size="${carLength*0.1} ${carWidth*0.133} ${carHeight*0.05}" />
             </geometry>
-            <material name="Green"/>
+            <material name="Black"/>
         </visual>
         <collision>
             <origin xyz="-0.02 0 0" />
@@ -195,7 +201,7 @@
         </collision>
     </link>
     <gazebo reference="front_right_bar_link">
-        <material>Gazebo/Green</material>
+        <material>Gazebo/Black</material>
     </gazebo>
 
 	<!-- the front left wheel -->
@@ -216,7 +222,7 @@
             <geometry>
                 <cylinder radius="${wheelRadius}" length="${wheelWidth}" />
             </geometry>
-            <material name="Green"/>
+            <material name="Black"/>
         </visual>
         <collision>
             <origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
@@ -226,7 +232,7 @@
         </collision>
     </link>
     <gazebo reference="front_left_wheel_link">
-        <material>Gazebo/Green</material>
+        <material>Gazebo/Black</material>
     </gazebo>
 
 	<!-- the front right wheel -->
@@ -247,7 +253,7 @@
             <geometry>
                 <cylinder radius="${wheelRadius}" length="${wheelWidth}" />
             </geometry>
-            <material name="Green"/>
+            <material name="Black"/>
         </visual>
         <collision>
             <origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
@@ -257,7 +263,7 @@
         </collision>
     </link>
     <gazebo reference="front_right_wheel_link">
-        <material>Gazebo/Green</material>
+        <material>Gazebo/Black</material>
         <turnGravityOff>false</turnGravityOff>
     </gazebo>
 
@@ -279,7 +285,7 @@
             <geometry>
                 <box size="${carLength*0.05} ${carWidth} ${carHeight*0.1}" />
             </geometry>
-            <material name="Green"/>
+            <material name="Black"/>
         </visual>
         <collision>
             <geometry>
@@ -288,7 +294,7 @@
         </collision>
     </link>
     <gazebo reference="front_link">
-        <material>Gazebo/Green</material>
+        <material>Gazebo/Black</material>
     </gazebo>
     <gazebo reference="ackermann_bar_link">
         <material>Gazebo/Blue</material>
@@ -423,14 +429,15 @@
             </inertial>
             
             <visual>
-                <origin rpy="0 0 0" xyz="0.679 0 0.4"/>
+                <origin rpy="0 0 0" xyz="1.0 0 0.4"/>
                 <geometry>
                     <box size="0.18 0.18 0.18"/>
                 </geometry>
+                <material name="Blue"/>
             </visual>
             
             <collision>
-                <origin rpy="0 0 0" xyz="0.679 0 0.025"/>
+                <origin rpy="0 0 0" xyz="1.0 0 0.4"/>
                 <geometry>
                     <box size="0.18 0.18 0.18"/>
                 </geometry>
@@ -455,6 +462,7 @@
                 <geometry>
                     <cylinder radius="0.0229" length="0.028"/>
                 </geometry>
+                <material name="Blue"/>
             </visual>
             
             <collision>
@@ -474,8 +482,8 @@
                 <origin>0.0 0.0 0.0</origin>
                 <displayRays>false</displayRays>
                 
-                <minAngle>-135</minAngle>
-                <maxAngle> 135</maxAngle>
+                <minAngle>0</minAngle>
+                <maxAngle>180</maxAngle>
                 
                 <minRange>0.06</minRange>
                 <maxRange>4.0</maxRange>
@@ -494,10 +502,10 @@
         </gazebo>
         
         <gazebo reference="laser_base_link">
-            <material>Gazebo/Black</material>
+            <material>Gazebo/Blue</material>
         </gazebo>
 	
         <gazebo reference="laser">
-            <material>Gazebo/Black</material>
+            <material>Gazebo/Blue</material>
         </gazebo>
 </robot>

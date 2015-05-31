@@ -12,6 +12,6 @@
 
   <node pkg="sicktoolbox_wrapper2" type="sicklms_5xx"  name="robucar_scan"  output="screen"></node>
 
-  <include file="$(find robucar_description)/launch/ackermann_vehicle_rviz.launch"></include>
+  <include file="$(find robucar_description)/launch/robucar_rviz.launch"></include>
 
 </launch>

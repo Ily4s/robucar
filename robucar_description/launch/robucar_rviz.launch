@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="namespace" default="robucar"/>
+
+  <include file="$(find robucar_description)/launch/robucar.launch">
+    <arg name="namespace" value="$(arg namespace)"/>
+  </include>
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher"
+        type="joint_state_publisher" ns="$(arg namespace)">
+    <param name="rate" value="30"/>
+    <param name="use_gui" value="false"/>
+  </node>
+
+<!--   <node name="map_server" pkg="map_server" type="map_server" args="$(find robucar_description)/maps/out1mod.yaml"/> -->
+
+  <include file="$(find robucar_description)/launch/rviz.launch">
+    <arg name="namespace" value="$(arg namespace)"/>
+  </include>
+</launch>

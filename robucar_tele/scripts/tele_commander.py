@@ -5,21 +5,30 @@ import sys
 import socket
 import struct
 from sensor_msgs.msg import Joy
+from geometry_msgs.msg import PoseStamped
 from time import sleep
-
 
 __author__ = "Ilyas M Abbas (ily4s.abbas@gmail.com)"
 
 
-class JControl(object):
+class Broadcast(object):
 
     def __init__(self):
-        super(JControl, self).__init__()
+        super(Broadcast, self).__init__()
 
-        RHOST = "localhost" #rospy.get_param('/robucar_driver/laptopip',  '192.168.0.102')
-        RPORT = 13003
-        self.server = (RHOST, RPORT)
-        self.ctrl_def = "<ddds"
+        RHOST = '192.168.1.5'
+        MOVE_RPORT = 13007
+        TELE_RPORT = 13003
+        self.move_server = (RHOST, MOVE_RPORT)
+        self.tele_server = (RHOST, TELE_RPORT)
+        self.move_def = "<ddddd"
+        self.tele_def = "<ddds"
+
+        self.time = rospy.Time.now().to_sec()
+        self.px = 0.0
+        self.py = 0.0
+        self.oz = 0.0
+        self.ow = 0.0
 
         self.speed = 0.0
         self.phi = 0.0
@@ -34,8 +43,23 @@ class JControl(object):
             print msg.message
             sys.exit(1)
 
-    def update(self, joy):
+    def move_update(self, msg):
+        self.time = msg.header.stamp.to_sec()
+        self.px = msg.pose.position.x
+        self.py = msg.pose.position.y
+        self.oz = msg.pose.orientation.z
+        self.ow = msg.pose.orientation.w
 
+        data = struct.pack(self.move_def,
+                           float(self.time),
+                           float(self.px),
+                           float(self.py),
+                           float(self.oz),
+                           float(self.ow))
+
+        self.conn.sendto(data, (self.move_server))
+
+    def tele_update(self, joy):
         if joy.axes[0] == 0:
             self.phi = 0.0
         elif joy.axes[0] == -1:
@@ -62,13 +86,13 @@ class JControl(object):
             else:
                 self.cmode = 0
 
-        data = struct.pack(self.ctrl_def,
+        data = struct.pack(self.tele_def,
                            float(self.speed),
                            float(self.phi),
                            int(self.cmode),
                            str(self.mode))
 
-        self.conn.sendto(data, (self.server))
+        self.conn.sendto(data, (self.tele_server))
 
     def close(self):
         self.conn.close()
@@ -79,8 +103,11 @@ class JControl(object):
 
 if __name__ == '__main__':
 
-    jc = JControl()
+    rospy.init_node('remote_commander', anonymous=True)
+    b = Broadcast()
     sleep(0.5)
-    rospy.init_node('robucar_joy_ctrl', anonymous=True)
-    rospy.Subscriber('joy', Joy, jc.update, queue_size=1)
+    rospy.Subscriber('/move_base_simple/goal', PoseStamped,
+                     b.move_update, queue_size=1)
+    rospy.Subscriber('joy', Joy, b.tele_update, queue_size=1)
+
     rospy.spin()

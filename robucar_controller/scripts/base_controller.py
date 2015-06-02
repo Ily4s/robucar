@@ -76,6 +76,7 @@ class Driver(object):
     def drive(self):
         pub = rospy.Publisher('robucar_cmd', RobucarDriveStamped, queue_size=1)
         rospy.wait_for_service('robucar_drive_mode')
+        dm = rospy.ServiceProxy('robucar_drive_mode', DriveMode)
         r = rospy.Rate(100)
 
         while not rospy.is_shutdown():
@@ -98,7 +99,6 @@ class Driver(object):
 
             if self.dmode != self.prev_dmode:
                 try:
-                    dm = rospy.ServiceProxy('robucar_drive_mode', DriveMode)
                     dm(self.dmode)
                 except rospy.ServiceException, e:
                     print "Service call failed: %s" % e

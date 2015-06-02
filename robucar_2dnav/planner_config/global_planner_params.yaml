@@ -1,4 +1,4 @@
-base_global_planner: global_planner/PlannerCore
+base_global_planner: global_planner/GlobalPlanner
 
 PlannerCore:
    allow_unknown: true

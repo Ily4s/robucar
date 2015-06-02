@@ -4,8 +4,10 @@
 import struct
 import socket
 import rospy
+import sys
 from time import sleep
 from threading import Lock
+from robucar_driver.srv import DriveMode
 from robucar_driver.srv import RobotPTU
 from robucar_driver.msg import RobucarDriveStamped
 
@@ -98,6 +100,29 @@ class Control(object):
 
         return self.send(data)
 
+    def stop(self, req):
+        try:
+            if req.mode == 1:
+                data = struct.pack(self.ctrl_def,
+                                   float(0),
+                                   float(0),
+                                   float(0),
+                                   int(0),
+                                   int(0),
+                                   int(0),
+                                   int(0))
+                self.lock.acquire()
+                self.conn.send(data)
+                sleep(0.1)
+                self.conn.send(data)
+                self.close()
+                sys.exit(1)
+
+            return True
+        except Exception, e:
+            print e.message
+            return False
+
     def close(self):
         '''closes the tcp socket'''
         self.conn.close()
@@ -118,5 +143,6 @@ if __name__ == '__main__':
         'robucar_cmd', RobucarDriveStamped, c.update_actuators, queue_size=1)
     sleep(0.5)
     s = rospy.Service('robucar_ptu_serv', RobotPTU, c.rdata.ptu_update)
+    stop = rospy.Service('robucar_stop', DriveMode, c.stop)
     print "robucar ready to receive commands"
     rospy.spin()

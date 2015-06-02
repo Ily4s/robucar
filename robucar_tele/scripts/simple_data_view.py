@@ -4,6 +4,7 @@
 import rospy
 import ttk
 from Tkinter import *
+import tkFont
 from robucar_driver.msg import SimpleRobotData
 
 
@@ -18,8 +19,10 @@ class Pr(object):
         self.ra = 0
         self.Labels = None
         self.root = r
+        self.font = tkFont.Font(family='Helvetica', size=21, weight='bold')
 
     def update(self, msg):
+        print msg
         self.v = msg.speed_average
         self.fa = msg.angle_forward
         self.ra = msg.angle_rear
@@ -30,16 +33,16 @@ class Pr(object):
                 l.pack_forget()
 
         self.Labels = []
-        msg1 = str(self.v)
-        msg2 = str(self.fa)
-        msg3 = str(self.ra)
+        msg1 = "speed :  " + str(self.v)
+        msg2 = "front angle :  " + str(self.fa)
+        msg3 = "rear angle :  " + str(self.ra)
         bg = "#16a085"
-        self.Labels.append(ttk.Label(self.root, text=msg1,
-                                     background=bg, foreground="#efefef"))
-        self.Labels.append(ttk.Label(self.root, text=msg2,
-                                     background=bg, foreground="#efefef"))
-        self.Labels.append(ttk.Label(self.root, text=msg3,
-                                     background=bg, foreground="#efefef"))
+        self.Labels.append(ttk.Label(self.root, text=msg1, font=self.font,
+                                     background="#efefef", foreground=bg))
+        self.Labels.append(ttk.Label(self.root, text=msg2, font=self.font,
+                                     background="#efefef", foreground=bg))
+        self.Labels.append(ttk.Label(self.root, text=msg3, font=self.font,
+                                     background="#efefef", foreground=bg))
 
         for l in self.Labels:
             l.pack(ipadx=10, ipady=10)
@@ -53,7 +56,7 @@ class Pr(object):
 if __name__ == "__main__":
     root = Tk()
     pr = Pr(root)
-    root.after(500, pr.task)
+    root.after(200, pr.task)
     rospy.init_node('data_simple_gui', anonymous=True)
 
     rospy.Subscriber('myrobot_data', SimpleRobotData, pr.update, queue_size=1)

@@ -41,22 +41,27 @@ class Monitor(object):
     def start(self):
 
         rospy.wait_for_service('robucar_stop')
+        stop = rospy.ServiceProxy('robucar_stop', DriveMode)
 
         buf = self.conn.recvfrom(struct.calcsize(self.ctrl_def))
         self.data = struct.unpack(self.ctrl_def, buf[0])
         self.then = rospy.Time.from_sec(self.data[0])
-        stop = rospy.ServiceProxy('robucar_stop', DriveMode)
+        self.conn.settimeout(0.4)
 
         while not rospy.is_shutdown():
-            buf = self.conn.recvfrom(struct.calcsize(self.ctrl_def))
-            self.data = struct.unpack(self.ctrl_def, buf[0])
-            self.now = rospy.Time.from_sec(self.data[0])
-            diff = (self.now - self.then).to_sec()
-            if diff > 0.3:
+            try:
+                buf = self.conn.recvfrom(struct.calcsize(self.ctrl_def))
+                self.data = struct.unpack(self.ctrl_def, buf[0])
+                self.now = rospy.Time.from_sec(self.data[0])
+                diff = (self.now - self.then).to_sec()
+                if diff > 0.3:
+                    print "HALT"
+                    stop(1)
+                self.then = self.now
+            except Exception, e:
                 print "HALT"
                 stop(1)
-            self.then = self.now
-            print diff
+                raise e
 
     def close(self):
         self.conn.close()

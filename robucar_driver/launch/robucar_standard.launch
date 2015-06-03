@@ -1,6 +1,0 @@
-<launch>
-  
-  <node pkg="robucar_driver" type="robucar_control.py" name="robucar_ctrl" output="screen" />
-  <node pkg="robucar_driver" type="robucar_monitor.py"  name="robucar_mon"  output="screen" />
-
-</launch>

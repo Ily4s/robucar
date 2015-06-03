@@ -1,5 +1,3 @@
-<?xml version="1.0"?>
-
 <launch>
   <arg name="namespace" default="robucar"/>
 
@@ -13,9 +11,5 @@
     <param name="use_gui" value="false"/>
   </node>
 
-<!--   <node name="map_server" pkg="map_server" type="map_server" args="$(find robucar_description)/maps/out1mod.yaml"/> -->
-
-  <include file="$(find robucar_description)/launch/rviz.launch">
-    <arg name="namespace" value="$(arg namespace)"/>
-  </include>
+  <node name="rviz" pkg="rviz" type="rviz" ns="$(arg namespace)"/>
 </launch>

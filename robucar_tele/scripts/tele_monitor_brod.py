@@ -14,7 +14,7 @@ class Broadcast(object):
     def __init__(self):
         super(Broadcast, self).__init__()
 
-        RHOST = 'localhost'
+        RHOST = rospy.get_param('~ip',  'localhost')
         RPORT = 13008
         self.server = (RHOST, RPORT)
         self.t_def = "<d"

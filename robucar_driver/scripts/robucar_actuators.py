@@ -56,8 +56,8 @@ class Control(object):
         trying to connect to socket 10.1.40.56:8010    \
         if connection is unseccessful it will try again in 5 secs'''
         super(Control, self).__init__()
-        HOST = rospy.get_param('/robucar_driver/robotip',   '10.1.40.56')
-        PORT = rospy.get_param('/robucar_driver/robotport', 8010)
+        HOST = rospy.get_param('~ip',   '10.1.40.56')
+        PORT = rospy.get_param('~port', 8010)
         self.conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.ctrl_def = "<dddhhhh"
         self.rdata = Rdata()

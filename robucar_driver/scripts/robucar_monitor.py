@@ -34,9 +34,9 @@ class Monitoring(object):
 
         rospy.init_node('robucar_mon', anonymous=True)
 
-        HOST = rospy.get_param('/robucar_driver/laptopip',  '10.1.40.98')
-        PORT = rospy.get_param('/robucar_driver/laptopport', 8000)
-        print "connected: " + str(HOST) + ":" + str(PORT)
+        HOST = rospy.get_param('~ip',  '10.1.40.98')
+        PORT = rospy.get_param('~port', 8000)
+
         self.ctrl_def = "<dddddddhhhh"
         self.s = None
         self.data = [0] * 11
@@ -75,7 +75,7 @@ class Monitoring(object):
 
         self.conn, addr = self.s.accept()
         print 'Connected by', addr
-        print "Serving at port 8000"
+        print "Serving at port " + str(PORT)
 
     def monitor(self):
         ''' This function starts the robucar_mon node and begin publishing

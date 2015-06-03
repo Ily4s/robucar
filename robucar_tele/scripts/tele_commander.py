@@ -16,7 +16,7 @@ class Broadcast(object):
     def __init__(self):
         super(Broadcast, self).__init__()
 
-        RHOST = '192.168.1.5'
+        RHOST = rospy.get_param('~ip',  'localhost')
         MOVE_RPORT = 13007
         TELE_RPORT = 13003
         self.move_server = (RHOST, MOVE_RPORT)

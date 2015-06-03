@@ -1,0 +1,7 @@
+<launch>
+  
+  <node pkg="robucar_controller" type="base_controller.py"  name="base_controller"  output="screen"></node>
+
+  <node pkg="robucar_controller" type="cmd_vel_controller.py"  name="cmd_vel_controller"  output="screen"></node>
+
+</launch>

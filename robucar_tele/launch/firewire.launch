@@ -1,0 +1,25 @@
+<!-- 
+
+Vendor : PointGrey Research
+Model : Flea2 FL2G-13S2C
+GUID : 0x00b09d-0100c8f9f0 / 0
+Name : Point Grey Research Flea2 FL2G-13S2C
+IIDC specs: 1.31 
+iso channel : 0
+
+
+rosrun camera1394 camera1394_node _guid:=00b09d0100c8f9f0 _video_mode:=640x480_yuv _iso_speed:=400 _frame_rate:=30
+-->
+
+<launch>
+  
+	<node pkg="camera1394" type="camera1394_node" name="camera1394_node" output="screen" >
+		<param name="guid" value="00b09d0100c8f9f0" />
+		<param name="iso_speed" value="400" />
+		<param name="frame_rate" value="30" />
+		<param name="video_mode" value="640x480_mono8" />
+	</node>
+
+	 <node pkg="web_video_server" type="web_video_server" name="web_video_server_node" output="screen"></node>
+
+</launch>

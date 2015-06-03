@@ -1,0 +1,16 @@
+<launch>
+  
+  <node pkg="robucar_tele" type="tele_rpub.py"  name="tele_rpub"  output="screen"></node>
+  <node pkg="robucar_tele" type="tele_commander.py"  name="tele_commander"  output="screen">
+  	<param name="ip" type="string" value="127.0.0.1" />
+  </node>
+  <node pkg="robucar_tele" type="tele_monitor_brod.py"  name="tele_monitor_brod"  output="screen">
+  	<param name="ip" type="string" value="127.0.0.1" />
+  </node>
+  <node pkg="robucar_tele" type="simple_data_view.py"  name="simple_data_view"></node>
+
+  <node respawn="true" pkg="joy" type="joy_node"  name="joy_remote"  output="screen">
+  	<param name="dev" type="string" value="/dev/input/js0" />
+  </node>
+
+</launch>

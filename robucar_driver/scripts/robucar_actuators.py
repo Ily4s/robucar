@@ -136,9 +136,9 @@ class Control(object):
 
 if __name__ == '__main__':
 
+    rospy.init_node('robucar_driver_ctrl', anonymous=True)
     c = Control()
     sleep(0.5)
-    rospy.init_node('robucar_driver_ctrl', anonymous=True)
     rospy.Subscriber(
         'robucar_cmd', RobucarDriveStamped, c.update_actuators, queue_size=1)
     sleep(0.5)

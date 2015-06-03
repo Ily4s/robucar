@@ -5,6 +5,7 @@
   <include file="$(find amcl)/examples/amcl_diff.launch" />
 
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    
    <param name="controller_frequency" value="10.0"/>
    <param name="recovery_behavior_enabled" value="false"/>
    <param name="clearing_rotation_allowed" value="false"/>

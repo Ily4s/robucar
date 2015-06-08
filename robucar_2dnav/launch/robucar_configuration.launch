@@ -7,7 +7,6 @@
 	<include file="$(find robucar_tele)/launch/robucar_tele.launch"></include>
 
 	<include file="$(find robucar_tele)/launch/firewire.launch"></include>
-  
 
 	<node pkg="sicktoolbox_wrapper2" type="sicklms_5xx"  name="robucar_scan"  output="screen"></node>
 

@@ -70,7 +70,7 @@ class Driver(object):
             self.ack_next_phi = sa
             self.ack_mode = 0
         elif abs(sa) > 18:
-            self.ack_next_phi = degrees(asin(sin(radians(sa)) / 2.0))
+            self.ack_next_phi = degrees(asin(tan(radians(sa))/2.0))
             self.ack_mode = 1
 
     def drive(self):

@@ -5,10 +5,8 @@
 	<include file="$(find robucar_controller)/launch/robucar_controller.launch"></include>
 
 	<include file="$(find robucar_tele)/launch/robucar_tele.launch"></include>
-
+	
 	<include file="$(find robucar_tele)/launch/firewire.launch"></include>
-
-	<node pkg="sicktoolbox_wrapper2" type="sicklms_5xx"  name="robucar_scan"  output="screen"></node>
 
 	<include file="$(find robucar_description)/launch/robucar_rviz.launch"></include>
 

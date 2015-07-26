@@ -1,9 +1,11 @@
 <launch>
   
   <node pkg="robucar_tele" type="tele_base.py"  name="tele_base"  output="screen"></node>
- <!--  <node pkg="robucar_tele" type="tele_monitor_listner.py"  name="tele_monitor_listner"  output="screen"></node> -->
-  <node pkg="robucar_tele" type="tele_broadcast.py"  name="tele_broadcast"  output="screen">
-  	<param name="ip" type="string" value="192.168.1.111" />
+
+  <node pkg="robucar_tele" type="tele_monitor_listner.py"  name="tele_monitor_listner" output="screen"></node>
+  
+  <node pkg="robucar_tele" type="tele_broadcast.py"  name="tele_broadcast" output="screen">
+  	<param name="ip" type="string" value="192.168.1.100" />
   </node>
 
 </launch>

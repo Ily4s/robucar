@@ -9,4 +9,6 @@
   	<param name="port" type="int" value="12000" />
   </node>
 
+  <node pkg="robucar_driver" type="laser.py"  name="lms5xx"  output="screen" >  </node>
+
 </launch>

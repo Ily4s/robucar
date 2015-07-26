@@ -1,7 +1,7 @@
-obstacle_range: 5.0
-raytrace_range: 6.0
-footprint: [[0.75, 1.25], [0.75, -1.25], [-0.75, -1.25],[-0.75, 1.25],[0.75, 1.25]]
-inflation_radius: 1.00
+obstacle_range: 10.0
+raytrace_range: 12.0
+footprint: [[1.2, 1.0], [1.2, -1.0], [-1.2, -1.0],[-1.2, 1.0],[1.2, 1.0]]
+inflation_radius: 0.50
 
 observation_sources: laser_scan_sensor
 

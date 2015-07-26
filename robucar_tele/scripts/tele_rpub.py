@@ -66,7 +66,7 @@ class Tf_serv(Thread):
 
             tf_broadcaster.sendTransform((self.tx, self.ty, 0),
                                          (0.0, 0.0, self.rz, self.rw),
-                                         self.tf_time,
+                                         rospy.Time.now(),
                                          "odom",
                                          "map")
 
@@ -135,7 +135,7 @@ class Odom_serv(Thread):
             self.ly = self.data[6]
             self.az = self.data[7]
 
-            odom.header.stamp = self.odom_time
+            odom.header.stamp = rospy.Time.now()
             odom.pose.pose.position.x = self.px
             odom.pose.pose.position.y = self.py
             odom.pose.pose.position.z = 0
@@ -150,7 +150,7 @@ class Odom_serv(Thread):
             pub.publish(odom)
             tf_broadcaster.sendTransform((self.px, self.py, 0),
                                          (0.0, 0.0, self.oz, self.ow),
-                                         self.odom_time,
+                                         rospy.Time.now(),
                                          "base_link",
                                          "odom")
 
@@ -209,7 +209,7 @@ class R_serv(Thread):
             self.r_fangle = self.data[2]
             self.r_rangle = self.data[3]
 
-            sdata.header.stamp = self.r_time
+            sdata.header.stamp = rospy.Time.now()
             sdata.speed_average = self.r_speed
             sdata.angle_forward = self.r_fangle
             sdata.angle_rear = self.r_rangle

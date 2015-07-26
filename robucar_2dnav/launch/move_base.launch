@@ -1,5 +1,8 @@
 <launch>
   <master auto="start"/>
+  <param name="/use_sim_time" value="false"/>
+
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find robucar_description)/maps/out1mod.yaml"/>
 
   <!--- Run AMCL -->
   <include file="$(find amcl)/examples/amcl_diff.launch" />

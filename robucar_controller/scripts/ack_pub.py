@@ -17,7 +17,7 @@ if __name__ == '__main__':
         sys.exit(1)
 
     rospy.init_node('ackermann_test_publisher', anonymous=True)
-    pub = rospy.Publisher('ackermann_cmd', AckermannDriveStamped, queue_size=1)
+    pub = rospy.Publisher('auto_cmd', AckermannDriveStamped, queue_size=1)
     ack_msg = AckermannDriveStamped()
     ack_msg.drive = AckermannDrive()
     ack_msg.drive.speed = float(sys.argv[1])

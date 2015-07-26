@@ -158,9 +158,9 @@ if __name__ == '__main__':
     drive = Driver()
     # s = rospy.Service('robucar_control_mode', DriveMode, drive.control_mode)
     rospy.Subscriber(
-        'ackermann_cmd', AckermannDriveStamped, drive.ack_update, queue_size=1)
+        'auto_cmd', AckermannDriveStamped, drive.ack_update, queue_size=1)
     rospy.Subscriber(
-        'joy_cmd', JoyDriveStamped, drive.joy_update, queue_size=1)
+        'tele_cmd', JoyDriveStamped, drive.joy_update, queue_size=1)
     print "start spin"
     drive.drive()
     try:

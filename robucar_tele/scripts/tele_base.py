@@ -109,7 +109,7 @@ class Tele(Thread):
 
     def run(self):
 
-        pub = rospy.Publisher('joy_cmd', JoyDriveStamped, queue_size=1)
+        pub = rospy.Publisher('tele_cmd', JoyDriveStamped, queue_size=1)
         r = rospy.Rate(10)
 
         while not rospy.is_shutdown():

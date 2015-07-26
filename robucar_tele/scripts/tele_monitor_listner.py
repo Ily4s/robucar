@@ -54,7 +54,7 @@ class Monitor(object):
                 self.data = struct.unpack(self.ctrl_def, buf[0])
                 self.now = rospy.Time.from_sec(self.data[0])
                 diff = (self.now - self.then).to_sec()
-                if diff > 0.3:
+                if diff > 1.0:
                     print "HALT"
                     stop(1)
                 self.then = self.now

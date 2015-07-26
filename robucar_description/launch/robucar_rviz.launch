@@ -1,5 +1,5 @@
 <launch>
-  <arg name="namespace" default="robucar"/>
+  <arg name="namespace" default="robucar_description"/>
 
   <include file="$(find robucar_description)/launch/robucar.launch">
     <arg name="namespace" value="$(arg namespace)"/>

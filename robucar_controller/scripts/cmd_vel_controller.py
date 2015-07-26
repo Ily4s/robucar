@@ -20,7 +20,7 @@ class Twist_to_ack(object):
 
         self.ack_msg = AckermannDriveStamped()
         self.ack_msg.drive = AckermannDrive()
-        self.publisher = rospy.Publisher('ackermann_cmd',
+        self.publisher = rospy.Publisher('auto_cmd',
                                          AckermannDriveStamped,
                                          queue_size=1)
 

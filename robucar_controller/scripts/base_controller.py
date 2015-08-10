@@ -7,7 +7,7 @@ from robucar_driver.msg import JoyDriveStamped
 from robucar_driver.msg import RobucarDrive
 from robucar_driver.msg import RobucarDriveStamped
 from ackermann_msgs.msg import AckermannDriveStamped
-from math import sin
+from math import tan
 from math import asin
 from math import radians
 from math import degrees
@@ -23,6 +23,8 @@ class Driver(object):
     def __init__(self):
         super(Driver, self).__init__()
         rospy.init_node('ackermann_controller', anonymous=True)
+
+        self.forced = rospy.get_param('~forcedmode',  'no')
 
         self.max_angle = 18.0
         self.max_f_speed = 5.0
@@ -66,12 +68,22 @@ class Driver(object):
     def ack_update(self, msg):
         sa = msg.drive.steering_angle
         self.ack_next_speed = msg.drive.speed
-        if abs(sa) <= 18:
+
+        if self.forced == "no":
+            if abs(sa) > 18:
+                self.ack_next_phi = degrees(asin(tan(radians(sa))/2.0))
+                self.ack_mode = 1
+            elif abs(sa) <= 18:
+                self.ack_next_phi = sa
+                self.ack_mode = 0
+
+        elif self.forced == "double":
+            self.ack_next_phi = sa
+            self.ack_mode = 1
+
+        elif self.forced == "simple":
             self.ack_next_phi = sa
             self.ack_mode = 0
-        elif abs(sa) > 18:
-            self.ack_next_phi = degrees(asin(tan(radians(sa))/2.0))
-            self.ack_mode = 1
 
     def drive(self):
         pub = rospy.Publisher('robucar_cmd', RobucarDriveStamped, queue_size=1)

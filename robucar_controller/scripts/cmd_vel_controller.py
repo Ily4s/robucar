@@ -27,7 +27,7 @@ class Twist_to_ack(object):
     def convert(self, tw):
         v = tw.linear.x
         w = tw.angular.z
-        lim = (v / 1.206) * tan(w)
+        lim = (v / 1.206) * tan(radians(18))
         self.ack_msg.header.stamp = rospy.Time.now()
         self.ack_msg.drive.speed = v
         if round(v, 1) != 0.0:

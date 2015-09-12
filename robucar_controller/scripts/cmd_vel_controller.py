@@ -4,7 +4,7 @@ import rospy
 from geometry_msgs.msg import Twist
 from ackermann_msgs.msg import AckermannDrive
 from ackermann_msgs.msg import AckermannDriveStamped
-from math import tan, atan, asin, degrees
+from math import tan, atan, asin, degrees, radians
 
 
 __author__ = "Ilyas M. Abbas (ily4s.abbas@gmail.com)"
@@ -27,18 +27,12 @@ class Twist_to_ack(object):
     def convert(self, tw):
         v = tw.linear.x
         w = tw.angular.z
-        lim = (v / 1.206) * tan(radians(18))
         self.ack_msg.header.stamp = rospy.Time.now()
         self.ack_msg.drive.speed = v
         if round(v, 1) != 0.0:
-            if lim < w:
-                self.ack_msg.drive.steering_angle = degrees(
-                    atan((1.206 / v) * w)
-                )
-            else:
-                self.ack_msg.drive.steering_angle = degrees(
-                    asin((1.206 / v) * w)
-                )
+            self.ack_msg.drive.steering_angle = degrees(
+                atan((1.206 / v) * w)
+            )
 
         self.publisher.publish(self.ack_msg)
 
